@@ -84,10 +84,10 @@ int main (int argc, char *argv[]) {
 	float *dev;
 	curandState *devStates;
 
-	printf("# of trials per thread = %d, # of blocks = %d, # of threads/block = %d.\n", TRIALS_PER_THREAD,
+	/*printf("# of trials per thread = %d, # of blocks = %d, # of threads/block = %d.\n", TRIALS_PER_THREAD,
 BLOCKS, THREADS);
 	printf("Total number of samples: %d.\n", TRIALS_PER_THREAD*THREADS*BLOCKS);
-
+	*/
 	start = clock();
 
 	cudaMalloc((void **) &dev, BLOCKS * THREADS * sizeof(float)); // allocate device mem. for counts
@@ -109,15 +109,15 @@ BLOCKS, THREADS);
 
 	stop = clock();
 
-	printf("GPU pi calculated in %f s.\n", (stop-start)/(float)CLOCKS_PER_SEC);
+	printf(/*"GPU pi calculated in %f s.\n",*/ "%f ",  (stop-start)/(float)CLOCKS_PER_SEC);
 
 	start = clock();
 	float pi_cpu = host_monte_carlo(BLOCKS * THREADS * TRIALS_PER_THREAD);
 	stop = clock();
-	printf("CPU pi calculated in %f s.\n", (stop-start)/(float)CLOCKS_PER_SEC);
+	printf(/*"CPU pi calculated in %f s.\n",*/ "%f ", (stop-start)/(float)CLOCKS_PER_SEC);
 
-	printf("CUDA estimate of PI = %f [error of %f]\n", pi_gpu, pi_gpu - PI);
-	printf("CPU estimate of PI = %f [error of %f]\n", pi_cpu, pi_cpu - PI);
+	printf(/*"CUDA estimate of PI = %f [error of %f]\n",*/ "%f ",/* pi_gpu,*/ pi_gpu - PI);
+	printf(/*"CPU estimate of PI = %f [error of %f]\n",*/ "%f \n", /* pi_cpu,*/ pi_cpu - PI);
 	
 	return 0;
 }
